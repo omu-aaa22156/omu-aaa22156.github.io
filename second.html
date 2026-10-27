@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BMI計算とおすすめの旅行先 小林拓磨</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Webシステム構築基礎 第3回課題</h1>
+    <p>小林拓磨（AAA22156）</p>
+  </header>
+
+  <section class="exercise" aria-label="BMI指標計算">
+    <h2>BMI指標計算</h2>
+    <form id="bmiForm" oninput="calculateBMI()" onsubmit="return false">
+      <p><label for="heightCm">身長（cm）</label>
+        <input id="heightCm" name="heightCm" type="number" min="0.1" step="any" required>
+      </p>
+      <p><label for="weightKg">体重（kg）</label>
+        <input id="weightKg" name="weightKg" type="number" min="0.1" step="any" required>
+      </p>
+      <p>BMI：<output id="bmiResult" name="bmiResult" for="heightCm weightKg" aria-live="polite"></output></p>
+    </form>
+    <p class="note">BMI ＝ 体重（kg）÷ 身長（m）の2乗。入力すると自動で計算します。</p>
+  </section>
+  <script>
+    function calculateBMI() {
+      var form = document.getElementById('bmiForm');
+      var result = document.getElementById('bmiResult');
+      if (!form.checkValidity()) {
+        result.textContent = '';
+        return;
+      }
+
+      var heightCm = Number(document.getElementById('heightCm').value);
+      var weightKg = Number(document.getElementById('weightKg').value);
+      if (heightCm <= 0 || weightKg <= 0) {
+        result.textContent = '';
+        return;
+      }
+
+      var heightM = heightCm / 100;
+      var bmi = weightKg / Math.pow(heightM, 2);
+      result.textContent = String(Math.round(bmi * 10) / 10);
+    }
+  </script>
+
+  <main>
+    <h2>おすすめの旅行先 京都</h2>
+    <p>京都は、寺社や町並みを見ながら歩く旅行におすすめです。行きたい場所を絞って、周辺をゆっくり回る楽しみ方を紹介します。</p>
+    <h3>清水寺の周辺を歩く</h3>
+    <p>清水寺の見学と周辺の散策を組み合わせ、景色や町並みを楽しむコースです。途中で休憩を入れると、無理なく歩けます。</p>
+    <h3>食事も一緒に楽しむ</h3>
+    <p>散策と合わせて、うどんなどの食事を楽しむのもよいと思います。食べ物のページでは、京風きつねうどんの写真を紹介しています。</p>
+    <nav><a href="index.html">おすすめの食べ物 きつねうどんに戻る</a></nav>
+  </main>
+</body>
+</html>
